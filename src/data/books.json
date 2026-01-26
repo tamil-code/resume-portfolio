@@ -1,0 +1,14 @@
+[
+  {
+    "title": "The Alchemist",
+    "pic": "/alchemist.jpg",
+    "subtitle": "Paulo Coelho",
+    "description": "A story about following your dreams and listening to your heart."
+  },
+  {
+    "title": "The Metamorphosis",
+    "pic": "/metamorphosis.jpg",
+    "subtitle": "Franz Kafka",
+    "description": "A novella about a salesman who wakes up one day to find himself transformed into a giant insect."
+  }
+]

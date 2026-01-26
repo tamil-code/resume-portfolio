@@ -1,0 +1,10 @@
+[
+  {
+    "name": "Realtime Chat App",
+    "pic": "/images/realtime-chat.png",
+    "git": true,
+    "githuburl": "https://github.com/tamil-code/realtime-chat-app",
+    "liveurl": "https://realtime-chat-app.demo.com",
+    "desc": "Built a real-time chat application using ReactJS and Firebase with authentication and live messaging. Designed a responsive UI using Material UI for multi-user communication."
+  }
+]
