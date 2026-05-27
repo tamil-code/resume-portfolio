@@ -1,17 +1,33 @@
+import { Fragment } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { motion } from "framer-motion"
 import { ExternalLink } from "lucide-react"
 
-const experiences = [
+type Experience = {
+  role: string
+  company: string
+  companyUrl: string
+  location: string
+  date: string
+  highlights: string[]
+  skills: string[]
+}
+
+const experiences: Experience[] = [
   {
     role: "Software Developer",
     company: "ComplianceCow",
     companyUrl: "https://www.compliancecow.com/",
     location: "Chennai, India",
     date: "Jan 2024 – Present",
-    description: "Built and optimized backend APIs in Go, integrating with PostgreSQL for reliable data storage and retrieval. Containerized services using Docker and gained exposure to Kubernetes for managing microservices deployments. Developed Python-based business rule scripts to automate evidence collection for GRC compliance workflows. Contributed to frontend development including UI revamps and no-code rule configuration interfaces using React and ServiceNow UI Builder.",
-    skills: ["Go", "PostgreSQL", "Docker", "Kubernetes", "Python", "React", "ServiceNow"],
+    highlights: [
+      "Built **MCP tools** across the product suite (forms, assessments, rules, workflows) using the **MCP Python SDK** and **Goose** orchestrator, **moving manual UI clickops to chatops** and **improving client productivity by 75%** (per client testimonial).",
+      "Shipped a **no-code task orchestrator** in **Go** that eliminated repeated scripting for control and workflow automation, **cutting authoring effort by 50%**, and authored reusable **Python** utilities for HTTP calls, schema validation, **SQL** querying, and data transforms.",
+      "Built the orchestrator's **no-code authoring UI** in **React** with a third-party component library, including config preview, input uploads, and credentialed test execution — **halving rule-building ETA** and shifting the team from hand-written configs to **UI-generated, testable** ones.",
+      "Configured customized workflows and control automations for enterprise clients, **reducing audit-preparation time by 80%**.",
+    ],
+    skills: ["MCP", "Python", "Goose", "Go", "SQL", "React"],
   },
   {
     role: "Software Developer Intern",
@@ -19,19 +35,40 @@ const experiences = [
     companyUrl: "https://www.compliancecow.com/",
     location: "Chennai, India",
     date: "Aug 2023 – Dec 2023",
-    description: "Worked on client-facing features such as control dashboards, assistant chatbot UI, and documentation components. Implemented domain-level user settings within the user management module. Migrated frontend pages from Go templates to React, improving maintainability and scalability.",
-    skills: ["React", "Go"],
+    highlights: [
+      "Migrated the entire product from **Go templates** to a **React + Turborepo monorepo**, improving **maintainability, scalability, and navigation performance**, and lifting overall developer and user experience.",
+      "Built client-facing features including **control dashboards**, an **assistant chatbot UI**, and **in-app documentation** components.",
+    ],
+    skills: ["Go", "React", "Turborepo"],
   },
   {
-    role: "Software Developer Intern",
+    role: "React Native Developer",
     company: "Byzero Technologies",
     companyUrl: "https://www.byzerotechnologies.com/",
     location: "Erode, India",
     date: "Mar 2023 – Oct 2023",
-    description: "Developed frontend components for Dashboard, Navbar, E-Learning Portal, and E-Commerce modules. Collaborated on UI design, API integration, and frontend optimization. Improved performance using React Hooks such as useMemo and useCallback. Built reusable components using Styled Components and ReactJS.",
-    skills: ["React", "React Hooks", "Styled Components", "JavaScript"],
+    highlights: [
+      "Designed UI mocks and built the **storefront frontend** for an e-commerce platform in **React** with **React Query** caching and API integration for **fast, low-latency page loads**.",
+      "Shipped an internal daily **work-log mobile app** in **React Native** using **Expo**, **Redux Toolkit**, **React Context**, and **React Query** — cutting standup overhead and **improving team productivity by 50%**, with logs feeding into performance-review metrics.",
+      "Delivered client-facing static **WordPress** sites on schedule with **custom PHP plugin** development, ensuring **on-time release and client satisfaction**.",
+    ],
+    skills: ["React", "React Native", "Expo", "Redux Toolkit", "React Query", "React Context", "WordPress", "PHP"],
   },
 ]
+
+function renderHighlight(text: string) {
+  const parts = text.split(/(\*\*[^*]+\*\*)/g)
+  return parts.map((part, i) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return (
+        <strong key={i} className="font-semibold text-foreground">
+          {part.slice(2, -2)}
+        </strong>
+      )
+    }
+    return <Fragment key={i}>{part}</Fragment>
+  })
+}
 
 export function Experience() {
   return (
@@ -80,7 +117,14 @@ export function Experience() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <p className="text-muted-foreground">{exp.description}</p>
+                  <ul className="space-y-2 text-muted-foreground">
+                    {exp.highlights.map((highlight, i) => (
+                      <li key={i} className="relative pl-5 leading-relaxed">
+                        <span className="absolute left-0 top-2.5 h-1.5 w-1.5 rounded-full bg-muted-foreground/60" />
+                        {renderHighlight(highlight)}
+                      </li>
+                    ))}
+                  </ul>
                   <div className="flex flex-wrap gap-2">
                     {exp.skills.map(skill => (
                       <Badge key={skill} variant="secondary">{skill}</Badge>
