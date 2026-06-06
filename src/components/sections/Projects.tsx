@@ -31,14 +31,19 @@ export function Projects() {
             >
               <Card className="flex h-full flex-col overflow-hidden border-border/50 bg-muted/20 transition-all hover:bg-muted/40 hover:shadow-lg">
                 <div className="aspect-video w-full overflow-hidden bg-muted">
-                    {/* Placeholder for project image if the path is generic, else render image */}
-                    <div className="flex h-full w-full items-center justify-center text-muted-foreground">
-                        {project.pic.includes("placeholder") || project.pic.startsWith("/") ? (
-                           <span className="text-sm">Project Image</span>
-                        ) : (
-                             <img src={project.pic} alt={project.name} className="h-full w-full object-cover transition-transform duration-300 hover:scale-105" />
-                        )}
-                    </div>
+                    {project.pic.includes("placeholder") ? (
+                      <div className="flex h-full w-full items-center justify-center text-muted-foreground">
+                        <span className="text-sm">Project Image</span>
+                      </div>
+                    ) : (
+                      <img
+                        src={project.pic}
+                        alt={`${project.name} demo`}
+                        className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    )}
                 </div>
                 <CardHeader>
                   <div className="flex items-center justify-between">

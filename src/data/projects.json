@@ -1,7 +1,7 @@
 [
   {
     "name": "LLM Book Recommender",
-    "pic": "/images/llm-book-recommender.png",
+    "pic": "/images/llm-book-recommender.webp",
     "git": true,
     "githuburl": "https://github.com/tamil-code/llm-book-recommender",
     "liveurl": "https://huggingface.co/spaces/tamilbharathiaishitter/llm-book-recommender",
