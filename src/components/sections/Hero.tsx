@@ -49,7 +49,7 @@ export function Hero() {
             </a>
           </Button>
           <Button size="lg" variant="outline" className="gap-2" asChild>
-            <a href={`${import.meta.env.BASE_URL}Single_Column_Deedy_CV_Résumé_Template.pdf`} target="_blank" rel="noopener noreferrer">
+            <a href="https://tamil-code.github.io/my-resume-latex/" target="_blank" rel="noopener noreferrer">
               Resume <Download className="h-4 w-4" />
             </a>
           </Button>
