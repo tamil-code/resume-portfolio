@@ -50,7 +50,7 @@ export function Hero() {
           </Button>
           <Button size="lg" variant="outline" className="gap-2" asChild>
             <a href={`${import.meta.env.BASE_URL}Single_Column_Deedy_CV_Résumé_Template.pdf`} target="_blank" rel="noopener noreferrer">
-              Download Resume <Download className="h-4 w-4" />
+              Resume <Download className="h-4 w-4" />
             </a>
           </Button>
         </motion.div>
