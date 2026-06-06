@@ -1,10 +1,10 @@
 [
   {
-    "name": "Realtime Chat App",
-    "pic": "/images/realtime-chat.png",
+    "name": "LLM Book Recommender",
+    "pic": "/images/llm-book-recommender.png",
     "git": true,
-    "githuburl": "https://github.com/tamil-code/realtime-chat-app",
-    "liveurl": "https://realtime-chat-app.demo.com",
-    "desc": "Built a real-time chat application using ReactJS and Firebase with authentication and live messaging. Designed a responsive UI using Material UI for multi-user communication."
+    "githuburl": "https://github.com/tamil-code/llm-book-recommender",
+    "liveurl": "https://huggingface.co/spaces/tamilbharathiaishitter/llm-book-recommender",
+    "desc": "Semantic book search over 7,000 titles — users describe what they want in plain English and get ranked recommendations via dense vector similarity (all-MiniLM-L6-v2, Chroma, LangChain, Gradio). Deployed on Hugging Face Spaces with a pre-built vector index for fast CPU inference."
   }
 ]
