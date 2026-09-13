@@ -45,7 +45,10 @@
 
 :root {
     --radius: 0.625rem;
-    --background: oklch(1 0 0);
+    --vt-x: 92%;
+    --vt-y: 36px;
+    --vt-r: 1600px;
+    --background: oklch(0.97 0.012 85);
     --foreground: oklch(0.145 0 0);
     --card: oklch(1 0 0);
     --card-foreground: oklch(0.145 0 0);
@@ -79,7 +82,7 @@
 }
 
 .dark {
-    --background: oklch(0.145 0 0);
+    --background: oklch(0.13 0.014 264);
     --foreground: oklch(0.985 0 0);
     --card: oklch(0.205 0 0);
     --card-foreground: oklch(0.985 0 0);
@@ -118,6 +121,35 @@
     }
 
     body {
-        @apply bg-background text-foreground;
+        @apply text-foreground;
+        background: transparent;
+    }
+}
+
+::view-transition-old(root) {
+    z-index: 1;
+    animation: none;
+    mix-blend-mode: normal;
+}
+
+::view-transition-new(root) {
+    z-index: 2;
+    mix-blend-mode: normal;
+    animation: eclipse-reveal 0.72s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes eclipse-reveal {
+    from {
+        clip-path: circle(0px at var(--vt-x) var(--vt-y));
+    }
+    to {
+        clip-path: circle(var(--vt-r) at var(--vt-x) var(--vt-y));
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+        animation: none !important;
     }
 }

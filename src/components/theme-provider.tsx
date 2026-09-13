@@ -1,6 +1,8 @@
-import { createContext, useContext, useEffect, useState } from "react"
+import { createContext, useContext, useEffect, useMemo, useState } from "react"
+import { flushSync } from "react-dom"
 
 type Theme = "dark" | "light" | "system"
+type ResolvedTheme = "dark" | "light"
 
 type ThemeProviderProps = {
   children: React.ReactNode
@@ -8,51 +10,93 @@ type ThemeProviderProps = {
   storageKey?: string
 }
 
+type ThemeOrigin = {
+  x: number
+  y: number
+}
+
 type ThemeProviderState = {
   theme: Theme
+  resolvedTheme: ResolvedTheme
   setTheme: (theme: Theme) => void
+  toggleTheme: (origin?: ThemeOrigin) => void
 }
 
-const initialState: ThemeProviderState = {
-  theme: "system",
-  setTheme: () => null,
+const ThemeProviderContext = createContext<ThemeProviderState | undefined>(undefined)
+
+function readSystemTheme(): ResolvedTheme {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
 }
 
-const ThemeProviderContext = createContext<ThemeProviderState>(initialState)
+function resolveTheme(theme: Theme): ResolvedTheme {
+  if (theme === "system") return readSystemTheme()
+  return theme
+}
+
+function applyDomTheme(resolved: ResolvedTheme) {
+  const root = window.document.documentElement
+  root.classList.remove("light", "dark")
+  root.classList.add(resolved)
+}
+
+function setRevealOrigin(origin?: ThemeOrigin) {
+  const root = window.document.documentElement
+  const x = origin?.x ?? window.innerWidth - 36
+  const y = origin?.y ?? 36
+  const maxX = Math.max(x, window.innerWidth - x)
+  const maxY = Math.max(y, window.innerHeight - y)
+  const radius = Math.hypot(maxX, maxY) * 1.15
+  root.style.setProperty("--vt-x", `${x}px`)
+  root.style.setProperty("--vt-y", `${y}px`)
+  root.style.setProperty("--vt-r", `${radius}px`)
+}
 
 export function ThemeProvider({
   children,
   defaultTheme = "dark",
   storageKey = "vite-ui-theme",
 }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(
-    () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
+  const [theme, setThemeState] = useState<Theme>(
+    () => (localStorage.getItem(storageKey) as Theme) || defaultTheme,
   )
 
+  const resolvedTheme = useMemo(() => resolveTheme(theme), [theme])
+
   useEffect(() => {
-    const root = window.document.documentElement
+    applyDomTheme(resolvedTheme)
+  }, [resolvedTheme])
 
-    root.classList.remove("light", "dark")
+  const commitTheme = (next: Theme) => {
+    localStorage.setItem(storageKey, next)
+    applyDomTheme(resolveTheme(next))
+    setThemeState(next)
+  }
 
-    if (theme === "system") {
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
-        .matches
-        ? "dark"
-        : "light"
+  const toggleTheme = (origin?: ThemeOrigin) => {
+    const next: Theme = resolvedTheme === "dark" ? "light" : "dark"
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    const canTransition =
+      !reduced &&
+      typeof document.startViewTransition === "function"
 
-      root.classList.add(systemTheme)
+    if (!canTransition) {
+      commitTheme(next)
       return
     }
 
-    root.classList.add(theme)
-  }, [theme])
+    setRevealOrigin(origin)
+    document.startViewTransition(() => {
+      flushSync(() => {
+        commitTheme(next)
+      })
+    })
+  }
 
-  const value = {
+  const value: ThemeProviderState = {
     theme,
-    setTheme: (theme: Theme) => {
-      localStorage.setItem(storageKey, theme)
-      setTheme(theme)
-    },
+    resolvedTheme,
+    setTheme: commitTheme,
+    toggleTheme,
   }
 
   return (
@@ -62,13 +106,12 @@ export function ThemeProvider({
   )
 }
 
-
-
 export const useTheme = () => {
   const context = useContext(ThemeProviderContext)
 
-  if (context === undefined)
+  if (!context) {
     throw new Error("useTheme must be used within a ThemeProvider")
+  }
 
   return context
 }

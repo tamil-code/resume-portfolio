@@ -29,7 +29,7 @@ export function Projects() {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
             >
-              <Card className="flex h-full flex-col overflow-hidden border-border/50 bg-muted/20 transition-all hover:bg-muted/40 hover:shadow-lg">
+              <Card className="flex h-full flex-col overflow-hidden border-border/50 bg-background/70 backdrop-blur-md transition-all hover:bg-background/80 hover:shadow-lg">
                 <div className="aspect-video w-full overflow-hidden bg-muted">
                     {project.pic.includes("placeholder") ? (
                       <div className="flex h-full w-full items-center justify-center text-muted-foreground">

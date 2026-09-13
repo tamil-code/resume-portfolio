@@ -96,7 +96,7 @@ export function Experience() {
               className="relative"
             >
               <span className="absolute -left-[41px] top-6 h-4 w-4 rounded-full border-2 border-background bg-foreground md:-left-[57px]" />
-              <Card className="border-none bg-muted/30 transition-colors hover:bg-muted/50">
+              <Card className="border-none bg-background/70 backdrop-blur-md transition-colors hover:bg-background/80">
                 <CardHeader>
                   <div className="flex flex-col justify-between gap-2 md:flex-row md:items-center">
                     <CardTitle className="text-xl">{exp.role}</CardTitle>
