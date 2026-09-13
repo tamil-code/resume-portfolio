@@ -75,17 +75,15 @@ export function ThemeProvider({
   const toggleTheme = (origin?: ThemeOrigin) => {
     const next: Theme = resolvedTheme === "dark" ? "light" : "dark"
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    const canTransition =
-      !reduced &&
-      typeof document.startViewTransition === "function"
+    const startViewTransition = document.startViewTransition?.bind(document)
 
-    if (!canTransition) {
+    if (reduced || !startViewTransition) {
       commitTheme(next)
       return
     }
 
     setRevealOrigin(origin)
-    document.startViewTransition(() => {
+    startViewTransition(() => {
       flushSync(() => {
         commitTheme(next)
       })
