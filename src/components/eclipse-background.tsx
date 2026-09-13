@@ -56,24 +56,6 @@ function buildField(width: number, height: number) {
   return { stars, dust }
 }
 
-function makeGrain() {
-  const tile = document.createElement("canvas")
-  tile.width = 128
-  tile.height = 128
-  const ctx = tile.getContext("2d")
-  if (!ctx) return tile
-  const img = ctx.createImageData(128, 128)
-  for (let i = 0; i < img.data.length; i += 4) {
-    const v = 180 + Math.random() * 50
-    img.data[i] = v
-    img.data[i + 1] = v - 6
-    img.data[i + 2] = v - 14
-    img.data[i + 3] = Math.random() > 0.72 ? 28 : 0
-  }
-  ctx.putImageData(img, 0, 0)
-  return tile
-}
-
 export function EclipseBackground() {
   const { resolvedTheme } = useTheme()
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -91,7 +73,6 @@ export function EclipseBackground() {
     if (!ctx) return
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    const grain = makeGrain()
 
     let width = 0
     let height = 0
@@ -149,36 +130,11 @@ export function EclipseBackground() {
         mouse.y += (mouse.ty - mouse.y) * 0.06
       }
 
-      const bgR = 247 * day + 18 * night
-      const bgG = 242 * day + 20 * night
-      const bgB = 232 * day + 28 * night
+      const bgR = 255 * day + 18 * night
+      const bgG = 255 * day + 20 * night
+      const bgB = 255 * day + 28 * night
       ctx.fillStyle = `rgb(${bgR}, ${bgG}, ${bgB})`
       ctx.fillRect(0, 0, width, height)
-
-      if (day > 0.02) {
-        const sunX = width * 0.78 + mouse.x * 18
-        const sunY = height * 0.18 + mouse.y * 10 - scroll.y * 0.12
-        const glow = ctx.createRadialGradient(sunX, sunY, 0, sunX, sunY, Math.max(width, height) * 0.55)
-        glow.addColorStop(0, `rgba(255, 214, 160, ${0.55 * day})`)
-        glow.addColorStop(0.18, `rgba(255, 196, 140, ${0.22 * day})`)
-        glow.addColorStop(0.45, `rgba(244, 228, 206, ${0.08 * day})`)
-        glow.addColorStop(1, "rgba(244, 228, 206, 0)")
-        ctx.fillStyle = glow
-        ctx.fillRect(0, 0, width, height)
-
-        ctx.beginPath()
-        ctx.arc(sunX, sunY, 42, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(255, 236, 210, ${0.95 * day})`
-        ctx.fill()
-
-        ctx.globalAlpha = 0.09 * day
-        const pattern = ctx.createPattern(grain, "repeat")
-        if (pattern) {
-          ctx.fillStyle = pattern
-          ctx.fillRect(0, 0, width, height)
-        }
-        ctx.globalAlpha = 1
-      }
 
       if (night > 0.02) {
         const s0 = shift(0)
@@ -217,7 +173,7 @@ export function EclipseBackground() {
         Math.max(width, height) * 0.72,
       )
       vignette.addColorStop(0, "rgba(0,0,0,0)")
-      vignette.addColorStop(1, night > 0.5 ? "rgba(0,0,0,0.28)" : "rgba(80,50,20,0.08)")
+      vignette.addColorStop(1, `rgba(0,0,0,${0.28 * night})`)
       ctx.fillStyle = vignette
       ctx.fillRect(0, 0, width, height)
 

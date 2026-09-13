@@ -62,11 +62,10 @@ export function Hero() {
         transition={{ delay: 0.6, duration: 0.5 }}
         className="relative aspect-square w-full max-w-[400px] overflow-hidden rounded-2xl bg-muted"
       >
-        <img 
+        <img
           src={`${import.meta.env.BASE_URL}pfp.jpg`}
           alt="Tamil Bharathi"
-          className="h-full w-full object-cover object-top opacity-0 transition-opacity duration-500"
-          onLoad={(e) => e.currentTarget.classList.remove("opacity-0")}
+          className="h-full w-full object-cover object-top"
         />
       </motion.div>
     </section>
