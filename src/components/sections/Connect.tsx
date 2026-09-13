@@ -1,5 +1,4 @@
 import { cn } from "@/lib/utils"
-import { motion } from "framer-motion"
 import { ArrowUpRight, Github, Linkedin, Mail } from "lucide-react"
 
 const socialLinks = [
@@ -29,13 +28,7 @@ const socialLinks = [
 export function Connect() {
   return (
     <section id="contact" className="py-24 md:py-32">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="flex flex-col items-center justify-center space-y-12"
-      >
+      <div className="flex flex-col items-center justify-center space-y-12">
         <div className="space-y-4 text-center">
           <h2 className="text-4xl font-bold tracking-tight sm:text-5xl">Let's Connect</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -45,24 +38,20 @@ export function Connect() {
         </div>
         
         <div className="grid w-full max-w-4xl grid-cols-1 gap-6 sm:grid-cols-3">
-           {socialLinks.map((social, index) => {
+           {socialLinks.map((social) => {
              const Icon = social.icon
              return (
-               <motion.a
+               <a
                  key={social.name}
                  href={social.href}
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 initial={{ opacity: 0, scale: 0.9 }}
-                 whileInView={{ opacity: 1, scale: 1 }}
-                 viewport={{ once: true }}
-                 transition={{ delay: index * 0.1 }}
+                 target={social.href.startsWith("mailto:") ? undefined : "_blank"}
+                 rel={social.href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
                  className={cn(
-                   "group relative flex flex-col items-center justify-between gap-4 overflow-hidden rounded-2xl border bg-card p-6 text-center transition-all hover:border-foreground/20 hover:shadow-2xl hover:-translate-y-1",
+                   "group relative flex min-h-12 flex-col items-center justify-between gap-4 overflow-hidden rounded-2xl border bg-card p-6 text-center transition-all hover:border-foreground/20 hover:shadow-2xl hover:-translate-y-1",
                  )}
                >
                  <div className={cn("rounded-full p-4 transition-colors", social.color)}>
-                   <Icon className="h-8 w-8" />
+                   <Icon className="h-8 w-8" aria-hidden="true" />
                  </div>
                  <div className="space-y-1">
                    <h3 className="font-semibold text-lg">{social.name}</h3>
@@ -70,13 +59,13 @@ export function Connect() {
                  </div>
                  
                  <div className="absolute top-4 right-4 opacity-0 transition-opacity group-hover:opacity-100">
-                    <ArrowUpRight className="h-4 w-4 text-muted-foreground" />
+                    <ArrowUpRight className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
                  </div>
-               </motion.a>
+               </a>
              )
            })}
         </div>
-      </motion.div>
+      </div>
     </section>
   )
 }

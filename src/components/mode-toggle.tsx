@@ -12,11 +12,11 @@ export function ModeToggle() {
       onClick={(event) => {
         toggleTheme({ x: event.clientX, y: event.clientY })
       }}
-      className="fixed top-4 right-4 z-50 rounded-full bg-background/40 backdrop-blur-md"
+      className="fixed top-4 right-4 z-50 h-12 w-12 rounded-full bg-background/40 backdrop-blur-md"
       aria-label={resolvedTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
     >
-      <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-      <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+      <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" aria-hidden="true" />
+      <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" aria-hidden="true" />
     </Button>
   )
 }

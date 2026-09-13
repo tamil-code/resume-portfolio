@@ -1,7 +1,6 @@
 import { Fragment } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { motion } from "framer-motion"
 import { ExternalLink } from "lucide-react"
 
 type Experience = {
@@ -73,13 +72,7 @@ function renderHighlight(text: string) {
 export function Experience() {
   return (
     <section id="experience" className="py-20">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="space-y-12"
-      >
+      <div className="space-y-12">
         <div className="space-y-4 text-center md:text-left">
           <h2 className="text-3xl font-bold tracking-tight">Experience</h2>
           <p className="text-muted-foreground">My professional journey.</p>
@@ -87,12 +80,8 @@ export function Experience() {
 
         <div className="relative space-y-8 border-l-2 border-muted pl-8 md:pl-12">
           {experiences.map((exp, index) => (
-            <motion.div
+            <div
               key={index}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
               className="relative"
             >
               <span className="absolute -left-[41px] top-6 h-4 w-4 rounded-full border-2 border-background bg-foreground md:-left-[57px]" />
@@ -110,7 +99,7 @@ export function Experience() {
                       className="inline-flex items-center gap-1 text-foreground hover:text-primary transition-colors underline-offset-4 hover:underline"
                     >
                       {exp.company}
-                      <ExternalLink className="h-3 w-3" />
+                      <ExternalLink className="h-3 w-3" aria-hidden="true" />
                     </a>
                     {" • "}
                     {exp.location}
@@ -132,10 +121,10 @@ export function Experience() {
                   </div>
                 </CardContent>
               </Card>
-            </motion.div>
+            </div>
           ))}
         </div>
-      </motion.div>
+      </div>
     </section>
   )
 }

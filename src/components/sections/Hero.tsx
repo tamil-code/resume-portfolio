@@ -1,73 +1,47 @@
 import { Button } from "@/components/ui/button"
-import { motion } from "framer-motion"
 import { ArrowRight, Download } from "lucide-react"
 
 export function Hero() {
+  const photoSrc = `${import.meta.env.BASE_URL}pfp.webp`
+
   return (
     <section id="hero" className="flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center gap-12 py-20 md:flex-row md:justify-between">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="flex max-w-xl flex-col items-start gap-6 text-left"
-      >
+      <div className="flex max-w-xl flex-col items-start gap-6 text-left">
         <div className="space-y-2">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2 }}
-          >
-            <h2 className="text-xl font-medium text-muted-foreground">Hey 👋, I'm </h2>
-          </motion.div>
-          <motion.h1 
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3 }}
-            className="text-5xl font-bold tracking-tight sm:text-7xl"
-          >
+          <p className="text-xl font-medium text-muted-foreground">Hey 👋, I'm </p>
+          <h1 className="text-5xl font-bold tracking-tight sm:text-7xl">
             Tamil Bharathi
-          </motion.h1>
-          <motion.p 
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.4 }}
-            className="text-xl text-muted-foreground"
-          >
+          </h1>
+          <p className="text-xl text-muted-foreground">
             Staff Software Engineer 3. I build production backend in Python and Go: MCP tool APIs, REST layers, and workflow engines.
-          </motion.p>
+          </p>
         </div>
 
-        <motion.div 
-           initial={{ opacity: 0, y: 20 }}
-           animate={{ opacity: 1, y: 0 }}
-           transition={{ delay: 0.5 }}
-           className="flex gap-4"
-        >
-          <Button size="lg" className="gap-2" asChild>
+        <div className="flex gap-4">
+          <Button size="lg" className="min-h-12 gap-2" asChild>
             <a href="#projects">
-              View Projects <ArrowRight className="h-4 w-4" />
+              View Projects <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </a>
           </Button>
-          <Button size="lg" variant="outline" className="gap-2" asChild>
-            <a href="/resume/monochrome_template/" target="_blank" rel="noopener noreferrer">
-              Resume <Download className="h-4 w-4" />
+          <Button size="lg" variant="outline" className="min-h-12 gap-2" asChild>
+            <a href={`${import.meta.env.BASE_URL}resume/monochrome_template/`} target="_blank" rel="noopener noreferrer">
+              Resume <Download className="h-4 w-4" aria-hidden="true" />
             </a>
           </Button>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
 
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.6, duration: 0.5 }}
-        className="relative aspect-square w-full max-w-[400px] overflow-hidden rounded-2xl bg-muted"
-      >
+      <div className="relative aspect-square w-full max-w-[400px] overflow-hidden rounded-2xl bg-muted">
         <img
-          src={`${import.meta.env.BASE_URL}pfp.jpg`}
+          src={photoSrc}
           alt="Tamil Bharathi"
+          width={800}
+          height={534}
+          fetchPriority="high"
+          decoding="async"
           className="h-full w-full object-cover object-top"
         />
-      </motion.div>
+      </div>
     </section>
   )
 }
