@@ -16,30 +16,32 @@ type Experience = {
 
 const experiences: Experience[] = [
   {
-    role: "Software Developer",
+    role: "Staff Software Engineer 3",
     company: "ComplianceCow",
     companyUrl: "https://www.compliancecow.com/",
     location: "Chennai, India",
-    date: "Jan 2024 – Present",
+    date: "Jul 2024 – Present",
     highlights: [
-      "Built **MCP tools** across the product suite (forms, assessments, rules, workflows) using the **MCP Python SDK** and **Goose** orchestrator, **moving manual UI clickops to chatops** and **improving client productivity by 75%** (per client testimonial).",
-      "Shipped a **no-code task orchestrator** in **Go** that eliminated repeated scripting for control and workflow automation, **cutting authoring effort by 50%**, and authored reusable **Python** utilities for HTTP calls, schema validation, **SQL** querying, and data transforms.",
-      "Built the orchestrator's **no-code authoring UI** in **React** with a third-party component library, including config preview, input uploads, and credentialed test execution — **halving rule-building ETA** and shifting the team from hand-written configs to **UI-generated, testable** ones.",
-      "Configured customized workflows and control automations for enterprise clients, **reducing audit-preparation time by 80%**.",
+      "Built production **MCP** tools (MCP Python SDK) over product **REST APIs** with tool schemas, token auth pass-through, and error contracts, so LLM clients run Forms, Assessments, Rules, and Workflows instead of a click path.",
+      "Shipped a **Go** workflow engine with concurrent workers, retries, timeouts, and failure handling for control and workflow automation, replacing per-customer scripts and cutting authoring effort about **50%**.",
+      "Wrote reusable **Python** integration code: HTTP clients (pagination, rate limits), JSON Schema validation, **SQL** querying, and data transforms used by multi-step jobs.",
+      "Debugged production run failures at the job boundary (timeouts, retries, bad payloads) and tightened validation so bad input fails before a run starts.",
+      "Contributed to **20+ Go microservices** that power the CCM product APIs, from authentication through control automation and monitoring.",
+      "Implemented common control mappings in a GRC / CCM product used against enterprise frameworks including **SOC 2** and **ISO 27001**, so one control set could cover multiple client scopes.",
     ],
-    skills: ["MCP", "Python", "Goose", "Go", "SQL", "React"],
+    skills: ["MCP", "Python", "Go", "REST APIs", "SQL", "Docker", "Kubernetes"],
   },
   {
     role: "Software Developer Intern",
     company: "ComplianceCow",
     companyUrl: "https://www.compliancecow.com/",
     location: "Chennai, India",
-    date: "Aug 2023 – Dec 2023",
+    date: "Jan 2024 – Jun 2024",
     highlights: [
-      "Migrated the entire product from **Go templates** to a **React + Turborepo monorepo**, improving **maintainability, scalability, and navigation performance**, and lifting overall developer and user experience.",
-      "Built client-facing features including **control dashboards**, an **assistant chatbot UI**, and **in-app documentation** components.",
+      "Built **React** control dashboards and a chatbot UI that consume backend APIs; migrated the product frontend from **Go templates** to a **React + Turborepo** monorepo.",
+      "Wrote control-automation integrations against enterprise systems (**Azure**, **AWS**, **GCP**, **Okta**, **GitHub**, **GitLab**, **AuditBoard**, **Salesforce**, **ServiceNow**).",
     ],
-    skills: ["Go", "React", "Turborepo"],
+    skills: ["React", "Turborepo", "Azure", "AWS", "GCP", "Okta", "GitHub", "GitLab", "ServiceNow"],
   },
   {
     role: "React Native Developer",
@@ -48,11 +50,9 @@ const experiences: Experience[] = [
     location: "Erode, India",
     date: "Mar 2023 – Oct 2023",
     highlights: [
-      "Designed UI mocks and built the **storefront frontend** for an e-commerce platform in **React** with **React Query** caching and API integration for **fast, low-latency page loads**.",
-      "Shipped an internal daily **work-log mobile app** in **React Native** using **Expo**, **Redux Toolkit**, **React Context**, and **React Query** — cutting standup overhead and **improving team productivity by 50%**, with logs feeding into performance-review metrics.",
-      "Delivered client-facing static **WordPress** sites on schedule with **custom PHP plugin** development, ensuring **on-time release and client satisfaction**.",
+      "Integrated **REST APIs** into a React storefront (caching, retries on failed loads) and shipped an internal **React Native** work-log app.",
     ],
-    skills: ["React", "React Native", "Expo", "Redux Toolkit", "React Query", "React Context", "WordPress", "PHP"],
+    skills: ["React", "React Native", "REST APIs"],
   },
 ]
 

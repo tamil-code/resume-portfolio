@@ -33,7 +33,7 @@ export function Hero() {
             transition={{ delay: 0.4 }}
             className="text-xl text-muted-foreground"
           >
-            A passionate Developer crafting beautiful and functional digital experiences.
+            Staff Software Engineer 3. I build production backend in Python and Go: MCP tool APIs, REST layers, and workflow engines.
           </motion.p>
         </div>
 
